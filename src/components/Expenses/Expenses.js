@@ -12,6 +12,19 @@ const Expenses = ({ items }) => {
     console.log(selectedYear);
   };
 
+  // filtering by year
+  const filteredExpenses = items.filter(
+    (item) => item.date.getFullYear().toString() === filteredYear
+  );
+
+  let expenseContent = <p>아직 등록된 지출이 없습니다.</p>;
+
+  if (filteredExpenses.length > 0) {
+    expenseContent = filteredExpenses.map(({ id, title, price, date }) => (
+      <ExpenseItem key={id} title={title} price={price} date={date} />
+    ));
+  }
+
   return (
     <div>
       <Card className="expenses">
@@ -19,11 +32,7 @@ const Expenses = ({ items }) => {
           selected={filteredYear}
           onChangeFilter={filterChangeHandler}
         />
-        {items
-          .filter(item => item.date.getFullYear().toString() === filteredYear)
-          .map(({ id, title, price, date }) => (
-            <ExpenseItem key={id} title={title} price={price} date={date} />
-          ))}
+        {expenseContent}
       </Card>
     </div>
   );
