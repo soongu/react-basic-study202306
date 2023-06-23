@@ -1,26 +1,48 @@
-import React, { useState } from "react";
-import Expenses from "./components/Expenses/Expenses";
-import NewExpense from "./components/NewExpense/NewExpense";
+import React, { useState } from 'react';
 
-const DUMMY_EXPENSES = [
-  { id: 1, title: "냠냠치킨", price: 19000, date: new Date(2023, 3 - 1, 3) },
-  { id: 2, title: "양파", price: 5000, date: new Date(2022, 12 - 1, 7) },
-  { id: 3, title: "포도", price: 20000, date: new Date(2023, 6 - 1, 21) },
-  { id: 4, title: "오렌지", price: 15000, date: new Date(2023, 6 - 1, 22) },
-];
+import CourseGoalList from './components/CourseGoals/CourseGoalList/CourseGoalList';
+import CourseInput from './components/CourseGoals/CourseInput/CourseInput';
+import './App.css';
 
 const App = () => {
-  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
+  const [courseGoals, setCourseGoals] = useState([
+    { text: '리액트 컴포넌트 스타일 마스터하기', id: 'g1' },
+    { text: '리액트 고인물 되기', id: 'g2' }
+  ]);
 
-  const addExpenseHandler = (expense) => {
-    // console.log('In App.js :', expense);
-    setExpenses((prevExpenses) => [expense, ...prevExpenses]);
+  const addGoalHandler = enteredText => {
+    setCourseGoals(prevGoals => {
+      const updatedGoals = [...prevGoals];
+      updatedGoals.unshift({ text: enteredText, id: Math.random().toString() });
+      return updatedGoals;
+    });
   };
+
+  const deleteItemHandler = goalId => {
+    setCourseGoals(prevGoals => {
+      const updatedGoals = prevGoals.filter(goal => goal.id !== goalId);
+      return updatedGoals;
+    });
+  };
+
+  let content = (
+    <p style={{ textAlign: 'center' }}>목표를 등록해주세요!</p>
+  );
+
+  if (courseGoals.length > 0) {
+    content = (
+      <CourseGoalList items={courseGoals} onDeleteItem={deleteItemHandler} />
+    );
+  }
 
   return (
     <div>
-      <NewExpense onAddExpense={addExpenseHandler} />
-      <Expenses items={expenses} />
+      <section id="goal-form">
+        <CourseInput onAddGoal={addGoalHandler} />
+      </section>
+      <section id="goals">
+        {content}
+      </section>
     </div>
   );
 };
