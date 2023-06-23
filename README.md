@@ -34,6 +34,7 @@ $ npm install reactstrap bootstrap
 $ npm install @mui/material @emotion/react @emotion/styled
 $ npm install @mui/icons-material
 $ npm install react-router-dom
+$ npm install styled-components
 ```
 
 ## 리액트 라우터 설정
