@@ -54,7 +54,7 @@ const ExpenseForm = ({ onSaveExpense, onToggle }) => {
 
     const expense = {
       title: userInput.enteredTitle,
-      price: userInput.enteredPrice,
+      price: +userInput.enteredPrice,
       date: new Date(userInput.enteredDate),
     };
     // console.log(expense);
