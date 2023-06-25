@@ -51,7 +51,7 @@ const AddUser = ({ onAddUser }) => {
     setError(null);
   };
   return (
-    <>
+    <React.Fragment>
       {error && (
         <ErrorModal
           title={error.title}
@@ -78,7 +78,7 @@ const AddUser = ({ onAddUser }) => {
           <Button type="submit">가입하기</Button>
         </form>
       </Card>
-    </>
+    </React.Fragment>
   );
 };
 
