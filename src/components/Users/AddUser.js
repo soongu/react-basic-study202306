@@ -5,7 +5,7 @@ import Button from "../UI/Button";
 
 import styles from "./AddUser.module.css";
 
-const AddUser = () => {
+const AddUser = ({onAddUser}) => {
   const [userValue, setUserValue] = useState({
     username: "",
     age: "",
@@ -19,7 +19,8 @@ const AddUser = () => {
     }
     if(+age < 1) return;
     
-    console.log(userValue.username, userValue.age);
+    onAddUser(userValue);
+    // console.log(userValue.username, userValue.age);
     setUserValue({ username: '', age: '' });
   };
 
