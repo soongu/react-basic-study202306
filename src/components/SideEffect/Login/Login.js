@@ -12,10 +12,18 @@ const Login = ({ onLogin }) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
-    console.log('useEffect call in Login.js');
-    setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length > 6
-    );
+    const identifier = setTimeout(() => {
+      console.log('입력값 검증 시작!');
+      setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      );
+    }, 500);
+
+    // clean up func
+    return () => {
+      console.log('cleanup!!');
+      clearTimeout(identifier);
+    };
   }, [enteredEmail, enteredPassword]);
 
 
