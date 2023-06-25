@@ -7,6 +7,7 @@ import styles from "./AddUser.module.css";
 import ErrorModal from "../UI/ErrorModal";
 
 const AddUser = ({ onAddUser }) => {
+  const [error, setError] = useState();
   const [userValue, setUserValue] = useState({
     username: "",
     age: "",
@@ -16,9 +17,19 @@ const AddUser = ({ onAddUser }) => {
     e.preventDefault();
     const { username, age } = userValue;
     if (username.trim().length === 0 || age.trim().length === 0) {
+      setError({
+        title: "유효하지 않은 입력값",
+        message: "입력값은 필수로 작성해야 합니다.",
+      });
       return;
     }
-    if (+age < 1) return;
+    if (+age < 1) {
+      setError({
+        title: "유효하지 않은 나이의 범위",
+        message: "나이는 1이상의 값만 입력해주세요.",
+      });
+      return;
+    }
 
     onAddUser(userValue);
     // console.log(userValue.username, userValue.age);
@@ -36,9 +47,18 @@ const AddUser = ({ onAddUser }) => {
     });
   };
 
+  const errorHandler = () => {
+    setError(null);
+  };
   return (
     <>
-      <ErrorModal title={"제목이 비었네용"} message={"공백은안됩니디~~"} />
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onConfirm={errorHandler}
+        />
+      )}
       <Card className={styles.input}>
         <form onSubmit={addUserHandler}>
           <label htmlFor="username">이름</label>
