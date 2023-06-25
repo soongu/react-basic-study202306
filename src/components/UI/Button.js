@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 // import styled from 'styled-components';
 
 // css 모듈
-import styles from './Button.module.css';
+import styles from "./Button.module.css";
 
 // const Button = styled.button`
 //   font: inherit;
@@ -26,9 +26,9 @@ import styles from './Button.module.css';
 
 // `;
 
-const Button = ({ type, onClick, children}) => {
+const Button = ({ type, onClick, children }) => {
   return (
-    <button type={type} className={styles.button} onClick={onClick}>
+    <button type={type || "button"} className={styles.button} onClick={onClick}>
       {children}
     </button>
   );
