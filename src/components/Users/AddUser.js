@@ -13,7 +13,14 @@ const AddUser = () => {
 
   const addUserHandler = (e) => {
     e.preventDefault();
+    const {username, age} = userValue;
+    if (username.trim().length === 0 || age.trim().length === 0) {
+      return;
+    }
+    if(+age < 1) return;
+    
     console.log(userValue.username, userValue.age);
+    setUserValue({ username: '', age: '' });
   };
 
   const usernameChangerHandler = (e) => {
