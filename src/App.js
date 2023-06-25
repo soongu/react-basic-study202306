@@ -1,25 +1,40 @@
-import React, { useState, Fragment } from 'react';
-import AddUser from './components/Users/AddUser';
-import UserList from './components/Users/UserList';
+import React, { useState, useEffect } from 'react';
 
-const App = () => {
-  const [userList, setUserList] = useState([]);
+import Login from './components/SideEffect/Login/Login';
+import Home from './components/SideEffect/Home/Home';
+import MainHeader from './components/SideEffect/MainHeader/MainHeader';
 
-  const addUserHandler = (newUser) => {
-    const addUserObject = {
-      id: Math.random().toString(),
-      name: newUser.username,
-      age: +newUser.age
-    };
-    setUserList(prev => [...prev, addUserObject]);
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    console.log('useEffect 실행!!');
+    const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
+
+    if (storedUserLoggedInInformation === '1') {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const loginHandler = (email, password) => {
+    localStorage.setItem('isLoggedIn', '1');
+    setIsLoggedIn(true);
+  };
+
+  const logoutHandler = () => {
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
   };
 
   return (
-    <Fragment>
-      <AddUser onAddUser={addUserHandler} />
-      <UserList users={userList} />
-    </Fragment>
+    <>
+      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+      <main>
+        {!isLoggedIn && <Login onLogin={loginHandler} />}
+        {isLoggedIn && <Home onLogout={logoutHandler} />}
+      </main>
+    </>
   );
-};
+}
 
 export default App;
