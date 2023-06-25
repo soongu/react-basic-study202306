@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import Card from "../UI/Card";
 import Button from "../UI/Button";
@@ -7,15 +7,20 @@ import styles from "./AddUser.module.css";
 import ErrorModal from "../UI/ErrorModal";
 
 const AddUser = ({ onAddUser }) => {
+
   const [error, setError] = useState();
-  const [userValue, setUserValue] = useState({
-    username: "",
-    age: "",
-  });
+
+  const nameInputRef = useRef();
+  const ageInputRef = useRef();
 
   const addUserHandler = (e) => {
     e.preventDefault();
-    const { username, age } = userValue;
+
+    // console.log(nameInputRef.current.value);
+
+    const username = nameInputRef.current.value;
+    const age = ageInputRef.current.value;
+
     if (username.trim().length === 0 || age.trim().length === 0) {
       setError({
         title: "유효하지 않은 입력값",
@@ -31,25 +36,16 @@ const AddUser = ({ onAddUser }) => {
       return;
     }
 
-    onAddUser(userValue);
-    // console.log(userValue.username, userValue.age);
-    setUserValue({ username: "", age: "" });
-  };
+    onAddUser({username, age});
 
-  const usernameChangerHandler = (e) => {
-    setUserValue((prev) => {
-      return { ...prev, username: e.target.value };
-    });
-  };
-  const ageChangeHandler = (e) => {
-    setUserValue((prev) => {
-      return { ...prev, age: e.target.value };
-    });
+    nameInputRef.current.value = '';
+    ageInputRef.current.value = '';
   };
 
   const errorHandler = () => {
     setError(null);
   };
+
   return (
     <React.Fragment>
       {error && (
@@ -65,15 +61,13 @@ const AddUser = ({ onAddUser }) => {
           <input
             id="username"
             type="text"
-            onChange={usernameChangerHandler}
-            value={userValue.username}
+            ref={nameInputRef}
           />
           <label htmlFor="age">나이</label>
           <input
             id="age"
             type="number"
-            onChange={ageChangeHandler}
-            value={userValue.age}
+            ref={ageInputRef}
           />
           <Button type="submit">가입하기</Button>
         </form>
