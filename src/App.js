@@ -1,8 +1,11 @@
 import React from "react";
+import Header from "./components/Layout/Header";
 
 const App = () => {
   return (
-    <div>Let&apos;s Getting Started!</div>
+    <>
+      <Header />
+    </>
   );
 };
 
