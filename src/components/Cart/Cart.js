@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./Cart.module.scss";
 import Modal from "../UI/Modal";
 
-const Cart = () => {
+const Cart = ({ onClose }) => {
   const {
     'cart-items': cartItemsStyle,
     total,
@@ -21,14 +21,14 @@ const Cart = () => {
   );
 
   return (
-    <Modal>
+    <Modal onClose={onClose}>
       {cartItems}
       <div className={total}>
         <span>주문 총액</span>
         <span>50,000원</span>
       </div>
       <div className={actions}>
-        <button className={btnAlt}>닫기</button>
+        <button className={btnAlt} onClick={onClose}>닫기</button>
         <button className={button}>주문</button>
       </div>
     </Modal>

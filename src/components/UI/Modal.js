@@ -2,27 +2,27 @@ import React from "react";
 
 import styles from "./Modal.module.scss";
 
-import Portal from './Portal';
+import Portal from "./Portal";
 
-const Backdrop = () => {
-  return <div className={styles.backdrop} />;
+const Backdrop = ({ onClose }) => {
+  return <div className={styles.backdrop} onClick={onClose} />;
 };
 
 const ModalOverlay = ({ children }) => {
   return (
     <div className={styles.modal}>
-      <div className={styles.content}>{children}</div>
+      <div>{children}</div>
     </div>
   );
 };
 
-const Modal = ({children}) => {
+const Modal = ({ children, onClose }) => {
   return (
     <>
-      <Portal target='backdrop-root'>
-        <Backdrop />
+      <Portal target="backdrop-root">
+        <Backdrop onClose={onClose} />
       </Portal>
-      <Portal target='overlay-root'>
+      <Portal target="overlay-root">
         <ModalOverlay>{children}</ModalOverlay>
       </Portal>
     </>

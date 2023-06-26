@@ -4,10 +4,10 @@ import styles from "./HeaderCartButton.module.scss";
 
 import CartIcon from '../Cart/CartIcon';
 
-const HeaderCartButton = () => {
+const HeaderCartButton = ({ onClick }) => {
   const { button, icon, badge } = styles;
   return (
-    <button className={button}>
+    <button className={button} onClick={onClick}>
       <span className={icon}>
         <CartIcon />
       </span>
