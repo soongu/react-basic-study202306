@@ -4,6 +4,7 @@ import Card from "../../UI/Card";
 import styles from "./Login.module.css";
 import Button from "../../UI/Button";
 import AuthContext from "../../../store/auth-context";
+import Input from "../../UI/Input";
 
 // 리듀서 함수는 컴포넌트 내부데이터와 관련이 없고
 // useReducer안에서만 작동하기 때문에 컴포넌트 밖에 선언한다.
@@ -110,34 +111,24 @@ const Login = () => {
   return (
     <Card className={styles.login}>
       <form onSubmit={submitHandler}>
-        <div
-          className={`${styles.control} ${
-            emailState.isValid === false ? styles.invalid : ""
-          }`}
-        >
-          <label htmlFor="email">E-Mail</label>
-          <input
-            type="email"
-            id="email"
-            value={emailState.value}
-            onChange={emailChangeHandler}
-            onBlur={validateEmailHandler}
-          />
-        </div>
-        <div
-          className={`${styles.control} ${
-            passwordState.isValid === false ? styles.invalid : ""
-          }`}
-        >
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={passwordState.value}
-            onChange={passwordChangeHandler}
-            onBlur={validatePasswordHandler}
-          />
-        </div>
+        <Input 
+          type='email'
+          id='email'
+          label='E-Mail'
+          value={emailState.value}
+          isValid={emailState.isValid}
+          onChange={emailChangeHandler}
+          onBlur={validateEmailHandler}
+        />
+        <Input 
+          type='password'
+          id='password'
+          label='Password'
+          value={passwordState.value}
+          isValid={passwordState.isValid}
+          onChange={passwordChangeHandler}
+          onBlur={validatePasswordHandler}
+        />
         <div className={styles.actions}>
           <Button type="submit" className={styles.btn} disabled={!formIsValid}>
             Login
