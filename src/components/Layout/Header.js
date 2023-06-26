@@ -2,6 +2,7 @@ import React from 'react';
 
 import mealsImage from '../../assets/meals.jpg';
 import styles from './Header.module.scss';
+import HeaderCartButton from './HeaderCartButton';
 
 const Header = () => {
 
@@ -11,7 +12,7 @@ const Header = () => {
     <>
       <header className={header}>
         <h1>ReactMeals</h1>
-        <button>Cart</button>
+        <HeaderCartButton />
       </header>
       <div className={mainImage}>
         <img src={mealsImage} alt='Looks very delicious meals' />
