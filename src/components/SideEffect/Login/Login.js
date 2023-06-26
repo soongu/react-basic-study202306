@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useState, useReducer, useContext } from "react";
 
 import Card from "../../UI/Card";
 import styles from "./Login.module.css";
 import Button from "../../UI/Button";
+import AuthContext from "../../../store/auth-context";
 
 // 리듀서 함수는 컴포넌트 내부데이터와 관련이 없고
 // useReducer안에서만 작동하기 때문에 컴포넌트 밖에 선언한다.
@@ -31,7 +32,8 @@ const passwordReducer = (state, action) => {
   return { value: '', isValid: null };
 };
 
-const Login = ({ onLogin }) => {
+const Login = () => {
+  const { onLogin } = useContext(AuthContext);
   // const [enteredEmail, setEnteredEmail] = useState("");
   // const [emailIsValid, setEmailIsValid] = useState();
   // const [enteredPassword, setEnteredPassword] = useState("");
