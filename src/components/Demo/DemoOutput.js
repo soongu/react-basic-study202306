@@ -5,4 +5,5 @@ const DemoOutput = (props) => {
   return <p>{props.show ? '새로운 문단~~' : ''}</p>;
 };
 
-export default DemoOutput;
+// props가 변경될때만 재실행하겠다
+export default React.memo(DemoOutput); 
